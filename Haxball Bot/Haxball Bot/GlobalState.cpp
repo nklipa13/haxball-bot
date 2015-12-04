@@ -10,6 +10,7 @@
 #include "Messager.hpp"
 #include <string>
 #include <iostream>
+#include <cstdio>
 
 using namespace std;
 
@@ -19,11 +20,8 @@ void GlobalState::newMessage() {
 }
 
 GlobalState::GlobalState(Messager *mess) : messager(mess) {
-  cerr << "tu";
   messager->sendLogin();
-  cerr << "waiting;";
   char *message = messager->receiveRaw();
-  cerr << message;
   parseMessage(message);
 }
 
@@ -31,6 +29,7 @@ void GlobalState::parseMessage(char *message) {
   vector<string> allMessages = GlobalState::parse(new string(message), ';');
 
   if (allMessages[0] == "k") {
+    parseConstants(allMessages[1]);
     long size = allMessages.size();
     for (long i = 2; i < size; i++) {
       parseKickoffPlayer(allMessages[i]);
@@ -71,21 +70,24 @@ vector<string> GlobalState::parse(string *message, char character) {
 
 Result GlobalState::parseResult(string message) {
   Result res;
-  vector<string> nums = GlobalState::parse(&message, ':');
-  res.home = stoi(nums[0]);
-  res.away = stoi(nums[1]);
+
+  sscanf(message.c_str(), "%d:%d", &res.home, &res.away);
+
   return res;
 };
 
 void GlobalState::parsePlayer(string message) {
   vector<string> info = GlobalState::parse(&message, ',');
   Player *player;
-  player = &allPlayers[stoi(info[0])];
+  Coord pos;
+  Coord vel;
+  int pid;
+  sscanf(message.c_str(), "%d,%f,%f,%f,%f", &pid, &pos.x, &pos.y, &vel.x,
+         &vel.y);
 
-  player->position.x = stof(info[1]);
-  player->position.y = stof(info[2]);
-  player->velocity.x = stof(info[3]);
-  player->velocity.y = stof(info[4]);
+  player = &allPlayers[pid];
+  player->position = pos;
+  player->velocity = vel;
 };
 
 void GlobalState::parseKickoffPlayer(string message) {
@@ -106,9 +108,12 @@ void GlobalState::parseKickoffPlayer(string message) {
 };
 
 void GlobalState::parseBall(string message) {
-  vector<string> info = GlobalState::parse(&message, ',');
-  ball.position.x = stof(info[0]);
-  ball.position.y = stof(info[1]);
-  ball.velocity.x = stof(info[2]);
-  ball.velocity.y = stof(info[3]);
+  sscanf(message.c_str(), "%f,%f,%f,%f", &ball.position.x, &ball.position.y,
+         &ball.velocity.x, &ball.velocity.y);
 };
+
+void GlobalState::parseConstants(string message) {
+  sscanf(message.c_str(), "%lf,%lf,%lf,%lf,%lf,%lf,%lf", &MAX_X, &MAX_Y,
+         &GOAL_POST_Y, &GOAL_POST_RADIUS, &BALL_RADIUS, &PLAYER_RADIUS,
+         &KICKER_RADIUS);
+}

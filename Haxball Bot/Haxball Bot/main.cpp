@@ -25,6 +25,7 @@ int main(int argc, const char *argv[]) {
 
   while (true) {
     gs.newMessage();
+    cerr << BALL_RADIUS << ' ' << KICKER_RADIUS << endl;
     // if (abs(gs.ball.position.x - gs.allPlayers[gs.id].position.x)
     // >abs(gs.ball.position.y - gs.allPlayers[gs.id].position.y))
     int keys = 0;
@@ -41,7 +42,7 @@ int main(int argc, const char *argv[]) {
     }
 
     if (Geometry::distance(gs.ball.position, gs.allPlayers[gs.id].position) <
-        (BALL_RADIUS + PLAYER_RADIUS))
+        (BALL_RADIUS + KICKER_RADIUS))
       keys |= KEY_SHOOT;
 
     messager->sendCommand(keys);

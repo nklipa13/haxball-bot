@@ -19,9 +19,15 @@ using namespace std;
 #define KEY_LEFT 8
 #define KEY_SHOOT 16
 
-#define PLAYER_RADIUS 2.75
-#define BALL_RADIUS 1.225
 #define USERNAME "KlipaBot"
+
+extern double PLAYER_RADIUS;
+extern double BALL_RADIUS;
+extern double MAX_X;
+extern double MAX_Y;
+extern double KICKER_RADIUS;
+extern double GOAL_POST_Y;
+extern double GOAL_POST_RADIUS;
 
 struct Coord {
   float x, y;

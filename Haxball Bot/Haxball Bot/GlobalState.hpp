@@ -22,6 +22,7 @@ class GlobalState {
   Result result;
 
   Result parseResult(string message);
+  void parseConstants(string message);
   void parsePlayer(string message);
   void parseKickoffPlayer(string message);
   void parseBall(string message);
