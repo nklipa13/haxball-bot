@@ -11,6 +11,8 @@
 		93B754141C0DD38600E0A920 /* PracticalSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93B754131C0DD38600E0A920 /* PracticalSocket.cpp */; };
 		93B754171C0DD45800E0A920 /* GlobalState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93B754151C0DD45800E0A920 /* GlobalState.cpp */; };
 		93B7541A1C0DD46800E0A920 /* Geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93B754181C0DD46800E0A920 /* Geometry.cpp */; };
+		93C1909D1C0DD77C007AF39C /* Messager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93C1909B1C0DD77C007AF39C /* Messager.cpp */; };
+		93C190A11C0DE204007AF39C /* Constants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93C1909F1C0DE204007AF39C /* Constants.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,12 +30,16 @@
 /* Begin PBXFileReference section */
 		93B754081C0DD13800E0A920 /* Haxball Bot */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Haxball Bot"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93B7540B1C0DD13800E0A920 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		93B754121C0DD31D00E0A920 /* PracticalSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PracticalSocket.h; sourceTree = "<group>"; };
+		93B754121C0DD31D00E0A920 /* PracticalSocket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PracticalSocket.hpp; sourceTree = "<group>"; };
 		93B754131C0DD38600E0A920 /* PracticalSocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PracticalSocket.cpp; sourceTree = "<group>"; };
 		93B754151C0DD45800E0A920 /* GlobalState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GlobalState.cpp; sourceTree = "<group>"; };
 		93B754161C0DD45800E0A920 /* GlobalState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GlobalState.hpp; sourceTree = "<group>"; };
 		93B754181C0DD46800E0A920 /* Geometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Geometry.cpp; sourceTree = "<group>"; };
 		93B754191C0DD46800E0A920 /* Geometry.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Geometry.hpp; sourceTree = "<group>"; };
+		93C1909B1C0DD77C007AF39C /* Messager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Messager.cpp; sourceTree = "<group>"; };
+		93C1909C1C0DD77C007AF39C /* Messager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Messager.hpp; sourceTree = "<group>"; };
+		93C1909F1C0DE204007AF39C /* Constants.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Constants.cpp; sourceTree = "<group>"; };
+		93C190A01C0DE204007AF39C /* Constants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Constants.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,15 +72,27 @@
 		93B7540A1C0DD13800E0A920 /* Haxball Bot */ = {
 			isa = PBXGroup;
 			children = (
+				93C1909E1C0DD786007AF39C /* HFiles */,
 				93B7540B1C0DD13800E0A920 /* main.cpp */,
-				93B754121C0DD31D00E0A920 /* PracticalSocket.h */,
 				93B754131C0DD38600E0A920 /* PracticalSocket.cpp */,
 				93B754151C0DD45800E0A920 /* GlobalState.cpp */,
-				93B754161C0DD45800E0A920 /* GlobalState.hpp */,
 				93B754181C0DD46800E0A920 /* Geometry.cpp */,
-				93B754191C0DD46800E0A920 /* Geometry.hpp */,
+				93C1909B1C0DD77C007AF39C /* Messager.cpp */,
+				93C1909F1C0DE204007AF39C /* Constants.cpp */,
 			);
 			path = "Haxball Bot";
+			sourceTree = "<group>";
+		};
+		93C1909E1C0DD786007AF39C /* HFiles */ = {
+			isa = PBXGroup;
+			children = (
+				93C190A01C0DE204007AF39C /* Constants.hpp */,
+				93B754121C0DD31D00E0A920 /* PracticalSocket.hpp */,
+				93B754161C0DD45800E0A920 /* GlobalState.hpp */,
+				93B754191C0DD46800E0A920 /* Geometry.hpp */,
+				93C1909C1C0DD77C007AF39C /* Messager.hpp */,
+			);
+			name = HFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -134,9 +152,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				93B754141C0DD38600E0A920 /* PracticalSocket.cpp in Sources */,
+				93C190A11C0DE204007AF39C /* Constants.cpp in Sources */,
 				93B7541A1C0DD46800E0A920 /* Geometry.cpp in Sources */,
 				93B7540C1C0DD13800E0A920 /* main.cpp in Sources */,
 				93B754171C0DD45800E0A920 /* GlobalState.cpp in Sources */,
+				93C1909D1C0DD77C007AF39C /* Messager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +245,7 @@
 		93B754101C0DD13800E0A920 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "libstdc++";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -232,6 +253,7 @@
 		93B754111C0DD13800E0A920 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "libstdc++";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -255,6 +277,7 @@
 				93B754111C0DD13800E0A920 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

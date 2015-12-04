@@ -7,3 +7,12 @@
 //
 
 #include "Geometry.hpp"
+#include <cmath>
+
+float Geometry::distance(Coord a, Coord b) {
+  return sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
+};
+
+Coord Geometry::vector(Coord a, Coord b) {
+  return Coord(b.x - a.x, b.y - a.y);
+};

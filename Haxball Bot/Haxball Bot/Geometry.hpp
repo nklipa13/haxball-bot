@@ -10,5 +10,12 @@
 #define Geometry_hpp
 
 #include <stdio.h>
+#include "Constants.hpp"
+
+class Geometry {
+public:
+  static float distance(Coord a, Coord b);
+  static Coord vector(Coord a, Coord b);
+};
 
 #endif /* Geometry_hpp */
