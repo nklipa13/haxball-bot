@@ -47,7 +47,7 @@ char *Messager::receiveRaw() {
 
     string sourceAddress;
     unsigned short sourcePort;
-    cerr << "cekam" << endl;
+    // cerr << "cekam" << endl;
     int bytesRcvd =
         sock.recvFrom(receivedMessage, BUFFSIZE, sourceAddress, sourcePort);
     // cerr << "stigla poruka" << endl;

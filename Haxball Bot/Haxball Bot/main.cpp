@@ -17,10 +17,9 @@ using namespace std;
 
 int main(int argc, const char *argv[]) {
   Messager *messager =
-      new Messager("localhost", 15000, 44444, string(USERNAME));
+      new Messager("localhost", 16000, 15000, string(USERNAME));
 
   GlobalState gs(messager);
-  int keys = 0;
 
   sleep(.2);
 
@@ -28,7 +27,7 @@ int main(int argc, const char *argv[]) {
     gs.newMessage();
     // if (abs(gs.ball.position.x - gs.allPlayers[gs.id].position.x)
     // >abs(gs.ball.position.y - gs.allPlayers[gs.id].position.y))
-
+    int keys = 0;
     if (gs.ball.position.x - gs.allPlayers[gs.id].position.x < 0) {
       keys |= KEY_LEFT;
     } else {
@@ -42,7 +41,7 @@ int main(int argc, const char *argv[]) {
     }
 
     if (Geometry::distance(gs.ball.position, gs.allPlayers[gs.id].position) <
-        (BALL_RADIUS + PLAYER_RADIUS) / 2 + 0.2)
+        (BALL_RADIUS + PLAYER_RADIUS))
       keys |= KEY_SHOOT;
 
     messager->sendCommand(keys);
