@@ -116,4 +116,10 @@ void GlobalState::parseConstants(string message) {
   sscanf(message.c_str(), "%lf,%lf,%lf,%lf,%lf,%lf,%lf", &MAX_X, &MAX_Y,
          &GOAL_POST_Y, &GOAL_POST_RADIUS, &BALL_RADIUS, &PLAYER_RADIUS,
          &KICKER_RADIUS);
+
+  homeGoal.down = *new Coord(-MAX_X, -GOAL_POST_Y + GOAL_POST_RADIUS);
+  homeGoal.up = *new Coord(-MAX_X, GOAL_POST_Y - GOAL_POST_RADIUS);
+
+  awayGoal.down = *new Coord(MAX_X, -GOAL_POST_Y + GOAL_POST_RADIUS);
+  awayGoal.up = *new Coord(MAX_X, GOAL_POST_Y - GOAL_POST_RADIUS);
 }

@@ -16,6 +16,8 @@ class Geometry {
 public:
   static float distance(Coord a, Coord b);
   static Coord vector(Coord a, Coord b);
+  static Line findLine(Coord a, Coord b);
+  static float distanceFromLine(Coord a, Coord b, Coord c);
 };
 
 #endif /* Geometry_hpp */

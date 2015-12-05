@@ -10,6 +10,7 @@
 #include "Constants.hpp"
 #include "Messager.hpp"
 #include "Geometry.hpp"
+#include "Logic.hpp"
 #include <iostream>
 #include <cmath>
 
@@ -20,30 +21,34 @@ int main(int argc, const char *argv[]) {
       new Messager("localhost", 16000, 15000, string(USERNAME));
 
   GlobalState gs(messager);
+  Logic logic(&gs);
 
   sleep(.2);
 
   while (true) {
     gs.newMessage();
-    cerr << BALL_RADIUS << ' ' << KICKER_RADIUS << endl;
+
     // if (abs(gs.ball.position.x - gs.allPlayers[gs.id].position.x)
     // >abs(gs.ball.position.y - gs.allPlayers[gs.id].position.y))
-    int keys = 0;
-    if (gs.ball.position.x - gs.allPlayers[gs.id].position.x < 0) {
-      keys |= KEY_LEFT;
-    } else {
-      keys |= KEY_RIGHT;
-    }
+    /*  int keys = 0;
+      if (gs.ball.position.x - gs.allPlayers[gs.id].position.x < 0) {
+        keys |= KEY_LEFT;
+      } else {
+        keys |= KEY_RIGHT;
+      }
 
-    if (gs.ball.position.y - gs.allPlayers[gs.id].position.y < 0) {
-      keys |= KEY_DOWN;
-    } else {
-      keys |= KEY_UP;
-    }
+      if (gs.ball.position.y - gs.allPlayers[gs.id].position.y < 0) {
+        keys |= KEY_DOWN;
+      } else {
+        keys |= KEY_UP;
+      }
 
-    if (Geometry::distance(gs.ball.position, gs.allPlayers[gs.id].position) <
-        (BALL_RADIUS + KICKER_RADIUS))
-      keys |= KEY_SHOOT;
+      if (Geometry::distance(gs.ball.position, gs.allPlayers[gs.id].position) <
+          (BALL_RADIUS + KICKER_RADIUS))
+        keys |= KEY_SHOOT;
+     */
+
+    int keys = logic.makeDecision();
 
     messager->sendCommand(keys);
   }

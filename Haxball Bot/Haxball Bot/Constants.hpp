@@ -56,4 +56,11 @@ struct Ball {
   Coord position, velocity;
 };
 
+struct Line {
+  // line is y = ax + b;
+  float a, b;
+  Line(float a, float b);
+  Line() = default;
+};
+
 #endif /* Constants_hpp */

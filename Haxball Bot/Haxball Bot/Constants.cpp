@@ -20,3 +20,8 @@ Coord::Coord(float x, float y) {
   this->x = x;
   this->y = y;
 };
+
+Line::Line(float a, float b) {
+  this->a = a;
+  this->b = b;
+};

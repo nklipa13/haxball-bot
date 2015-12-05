@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		934E7B631C13885C0042238D /* Logic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 934E7B611C13885C0042238D /* Logic.cpp */; };
 		93B7540C1C0DD13800E0A920 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93B7540B1C0DD13800E0A920 /* main.cpp */; };
 		93B754141C0DD38600E0A920 /* PracticalSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93B754131C0DD38600E0A920 /* PracticalSocket.cpp */; };
 		93B754171C0DD45800E0A920 /* GlobalState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93B754151C0DD45800E0A920 /* GlobalState.cpp */; };
@@ -28,6 +29,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		934E7B611C13885C0042238D /* Logic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Logic.cpp; sourceTree = "<group>"; };
+		934E7B621C13885C0042238D /* Logic.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Logic.hpp; sourceTree = "<group>"; };
 		93B754081C0DD13800E0A920 /* Haxball Bot */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Haxball Bot"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93B7540B1C0DD13800E0A920 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		93B754121C0DD31D00E0A920 /* PracticalSocket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PracticalSocket.hpp; sourceTree = "<group>"; };
@@ -79,6 +82,7 @@
 				93B754181C0DD46800E0A920 /* Geometry.cpp */,
 				93C1909B1C0DD77C007AF39C /* Messager.cpp */,
 				93C1909F1C0DE204007AF39C /* Constants.cpp */,
+				934E7B611C13885C0042238D /* Logic.cpp */,
 			);
 			path = "Haxball Bot";
 			sourceTree = "<group>";
@@ -86,6 +90,7 @@
 		93C1909E1C0DD786007AF39C /* HFiles */ = {
 			isa = PBXGroup;
 			children = (
+				934E7B621C13885C0042238D /* Logic.hpp */,
 				93C190A01C0DE204007AF39C /* Constants.hpp */,
 				93B754121C0DD31D00E0A920 /* PracticalSocket.hpp */,
 				93B754161C0DD45800E0A920 /* GlobalState.hpp */,
@@ -155,6 +160,7 @@
 				93C190A11C0DE204007AF39C /* Constants.cpp in Sources */,
 				93B7541A1C0DD46800E0A920 /* Geometry.cpp in Sources */,
 				93B7540C1C0DD13800E0A920 /* main.cpp in Sources */,
+				934E7B631C13885C0042238D /* Logic.cpp in Sources */,
 				93B754171C0DD45800E0A920 /* GlobalState.cpp in Sources */,
 				93C1909D1C0DD77C007AF39C /* Messager.cpp in Sources */,
 			);

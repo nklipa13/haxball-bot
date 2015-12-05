@@ -35,8 +35,8 @@ public:
   int id;
   string myTeam;
   Ball ball;
-  Goal homeGoal();
-  Goal awayGoal();
+  Goal homeGoal;
+  Goal awayGoal;
 
   void parseMessage(char *message);
   GlobalState(Messager *mess);
