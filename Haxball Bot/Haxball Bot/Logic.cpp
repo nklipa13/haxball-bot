@@ -37,7 +37,8 @@ bool Logic::canScore() {
                                      gs->allPlayers[gs->id].position);
 
       // if line intersect this in goal, return true
-      if (abs(line.a * oppGoal->down.x + line.b) < GOAL_POST_Y) {
+      if (abs(line.a * oppGoal->down.x + line.b) <
+          GOAL_POST_Y - GOAL_POST_RADIUS - BALL_RADIUS) {
         return true;
       }
     }
@@ -79,6 +80,54 @@ int Logic::goTo(Coord a) {
   return keys;
 }
 
+Coord Logic::avoidThis(Coord avoid, Coord finalGoal) {
+  Coord pointA;
+  Coord pointB;
+  float howFar = PLAYER_RADIUS * 1.3;
+  float dist = Geometry::distance(avoid, finalGoal);
+  Geometry::circle_circle_intersection(
+      avoid.x, avoid.y, sqrt(dist * dist + howFar * howFar), finalGoal.x,
+      finalGoal.y, howFar, &pointA.x, &pointA.y, &pointB.x, &pointB.y);
+
+  if (Geometry::distance(gs->allPlayers[gs->id].position, pointA) <
+      Geometry::distance(gs->allPlayers[gs->id].position, pointB)) {
+    return pointA;
+  } else {
+    return pointB;
+  }
+}
+
+int Logic::canReach(Coord a) {
+  float dist = Geometry::distance(gs->allPlayers[gs->id].position, a);
+
+  for (auto const &ent1 : gs->allPlayers) {
+    if (Geometry::distance(ent1.second.position,
+                           gs->allPlayers[gs->id].position) <
+        PLAYER_RADIUS * 3) {
+      if (Geometry::distance(ent1.second.position, a) < dist) {
+        if (Geometry::distanceFromLine(gs->allPlayers[gs->id].position, a,
+                                       ent1.second.position) <
+            PLAYER_RADIUS * 2.5) {
+          return ent1.first;
+        }
+      }
+    }
+  }
+
+  if (Geometry::distance(gs->ball.position, gs->allPlayers[gs->id].position) <
+      PLAYER_RADIUS * 3) {
+    if (Geometry::distance(gs->ball.position, gs->allPlayers[gs->id].position) <
+        dist) {
+      if (Geometry::distanceFromLine(gs->allPlayers[gs->id].position, a,
+                                     gs->ball.position) < PLAYER_RADIUS * 2.5) {
+        return -1;
+      }
+    }
+  }
+
+  return -2;
+}
+
 int Logic::makeDecision() {
   int keys = 0;
 
@@ -95,13 +144,26 @@ int Logic::makeDecision() {
     return keys;
   }
 
-  Coord ab = pointToScore();
-  keys |= goTo(ab);
+  Coord pointToReach = pointToScore();
 
-  cerr << "Gde trebam: " << ab.x << ' ' << ab.y << endl;
+  int num = canReach(pointToScore());
+
+  if (num != -2) {
+    if (num == -1) {
+      pointToReach = avoidThis(gs->ball.position, pointToReach);
+    } else {
+      pointToReach = avoidThis(gs->allPlayers[num].position, pointToReach);
+    }
+  }
+
+  keys |= goTo(pointToReach);
+
+  /*
+   cerr << "Gde trebam: " << pointToReach.x << ' ' << pointToReach.y << endl;
   cerr << "Gde sam sad: " << gs->allPlayers[gs->id].position.x << ' '
        << gs->allPlayers[gs->id].position.y << endl;
   cerr << "Gde je lopta: " << gs->ball.position.x << ' ' << gs->ball.position.y
        << endl;
+*/
   return keys;
 }

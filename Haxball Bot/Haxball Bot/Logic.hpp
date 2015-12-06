@@ -22,6 +22,8 @@ class Logic {
   bool canShoot();
   bool ballCloserToOppGoal();
   Coord pointToScore();
+  int canReach(Coord a);
+  Coord avoidThis(Coord where, Coord avoid);
 
 public:
   int makeDecision();
