@@ -128,6 +128,17 @@ int Logic::canReach(Coord a) {
   return -2;
 }
 
+bool Logic::iAmClosestToTheBall() {
+  float dist =
+      Geometry::distance(gs->allPlayers[gs->id].position, gs->ball.position);
+  for (auto const &ent1 : gs->allPlayers) {
+    if (Geometry::distance(ent1.second.position, gs->ball.position) < dist) {
+      return false;
+    }
+  }
+  return true;
+}
+
 int Logic::makeDecision() {
   int keys = 0;
 
@@ -144,20 +155,24 @@ int Logic::makeDecision() {
     return keys;
   }
 
-  Coord pointToReach = pointToScore();
+  if (iAmClosestToTheBall()) {
 
-  int num = canReach(pointToScore());
+    Coord pointToReach = pointToScore();
 
-  if (num != -2) {
-    if (num == -1) {
-      pointToReach = avoidThis(gs->ball.position, pointToReach);
-    } else {
-      pointToReach = avoidThis(gs->allPlayers[num].position, pointToReach);
+    int num = canReach(pointToScore());
+
+    if (num != -2) {
+      if (num == -1) {
+        pointToReach = avoidThis(gs->ball.position, pointToReach);
+      } else {
+        pointToReach = avoidThis(gs->allPlayers[num].position, pointToReach);
+      }
     }
+
+    keys |= goTo(pointToReach);
+  } else {
+    keys |= goTo(*new Coord(myGoal->down.x, 0));
   }
-
-  keys |= goTo(pointToReach);
-
   /*
    cerr << "Gde trebam: " << pointToReach.x << ' ' << pointToReach.y << endl;
   cerr << "Gde sam sad: " << gs->allPlayers[gs->id].position.x << ' '

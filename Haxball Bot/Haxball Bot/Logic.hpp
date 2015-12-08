@@ -24,6 +24,7 @@ class Logic {
   Coord pointToScore();
   int canReach(Coord a);
   Coord avoidThis(Coord where, Coord avoid);
+  bool iAmClosestToTheBall();
 
 public:
   int makeDecision();
