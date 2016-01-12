@@ -150,28 +150,43 @@ int Logic::makeDecision() {
     myGoal = &gs->awayGoal;
   }
 
+  if (dribbleCount > 0){
+      dribbleCount++;
+      float xCoord = 0;
+      if (dribbleCount < 20){
+          if (abs(oppGoal->down.x-(gs->allPlayers[gs->id].position.x+1)) < abs(oppGoal->down.x-(gs->allPlayers[gs->id].position.x-1))){
+              xCoord = gs->allPlayers[gs->id].position.x+10;
+          }else{
+              xCoord = (gs->allPlayers[gs->id].position.x-10);
+          }
+          keys |= goTo(*new Coord(xCoord, gs->allPlayers[gs->id].position.y));
+          return keys;
+      }else{
+          dribbleCount = 0;
+      }
+  }
+    
   if (canScore()) {
     keys |= KEY_SHOOT;
     return keys;
   }
 
-  if (iAmClosestToTheBall()) {
-
-    Coord pointToReach = pointToScore();
-
-    int num = canReach(pointToScore());
-
-    if (num != -2) {
-      if (num == -1) {
-        pointToReach = avoidThis(gs->ball.position, pointToReach);
-      } else {
-        pointToReach = avoidThis(gs->allPlayers[num].position, pointToReach);
+  if (canShoot()){
+      if (closerToMyGoalThenBall()){
+          int opp = findOppPlayer();
+          if (Geometry::distance(gs->allPlayers[gs->id].position, gs->allPlayers[opp].position)<10){
+              dribbleCount = 1;
+              keys |= KEY_SHOOT;
+              cerr << "Sutiram ga";
+              return keys;
+          }
       }
-    }
+  }
 
-    keys |= goTo(pointToReach);
+  if (iAmClosestToTheBall()) {
+      keys |= attack();
   } else {
-    keys |= goTo(*new Coord(myGoal->down.x, 0));
+      keys |= playD();
   }
   /*
    cerr << "Gde trebam: " << pointToReach.x << ' ' << pointToReach.y << endl;
@@ -181,4 +196,65 @@ int Logic::makeDecision() {
        << endl;
 */
   return keys;
+}
+
+int Logic::attack(){
+    
+    Coord pointToReach = pointToScore();
+    
+    int num = canReach(pointToScore());
+    
+    if (num != -2) {
+        if (num == -1) {
+            pointToReach = avoidThis(gs->ball.position, pointToReach);
+        } else {
+            pointToReach = avoidThis(gs->allPlayers[num].position, pointToReach);
+        }
+    }
+    
+    return goTo(pointToReach);
+}
+
+bool Logic::onDLine(int num){
+    return false;
+}
+
+bool Logic::closerToMyGoalThenBall(){
+    if (abs(myGoal->down.x-(gs->allPlayers[gs->id].position.x)) < abs(myGoal->down.x-(gs->ball.position.x))){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+int Logic::findOppPlayer(){
+    for (auto const &ent1 : gs->allPlayers){
+        if (ent1.first != gs->id) return ent1.first;
+    }
+    return -1;
+}
+
+Coord Logic::perfectDSpot(int num){
+    Coord point;
+    
+    point.y =
+    gs->ball.position.y +
+    (BALL_RADIUS * (gs->ball.position.y - gs->allPlayers[num].position.y /*is goal middle y*/)) /
+    Geometry::distance(*new Coord(gs->allPlayers[num].position.x, gs->allPlayers[num].position.y), gs->ball.position);
+    point.x =
+    gs->ball.position.x +
+    (BALL_RADIUS * (gs->ball.position.x - gs->allPlayers[num].position.x)) /
+    Geometry::distance(*new Coord(gs->allPlayers[num].position.x, gs->allPlayers[num].position.y), gs->ball.position);
+    
+    return point;
+    
+}
+
+int Logic::playD(){
+    int pl = findOppPlayer();
+    if (pl == -1) return 0;
+    
+    Coord pointToReach = perfectDSpot(pl);
+    
+    return goTo(pointToReach);
 }

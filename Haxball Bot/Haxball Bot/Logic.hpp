@@ -25,7 +25,14 @@ class Logic {
   int canReach(Coord a);
   Coord avoidThis(Coord where, Coord avoid);
   bool iAmClosestToTheBall();
-
+  int attack();
+  int playD();
+  bool onDLine(int num);
+  bool closerToMyGoalThenBall();
+  int findOppPlayer();
+  Coord perfectDSpot(int num);
+  int dribbleCount;
+    
 public:
   int makeDecision();
   Logic(GlobalState *gs);
